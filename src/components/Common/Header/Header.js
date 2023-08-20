@@ -9,7 +9,7 @@ export default function Header({ isLogin }) {
   return (
     <header className={header}>
       <Link to='/' className='header__logo-link'>
-        { <img src={logo} className='header__logo' alt='Логотип приложения' /> }
+        <img src={logo} className='header__logo' alt='Логотип приложения' />
       </Link>
       <Navigation isLogin={isLogin}/>
     </header>
