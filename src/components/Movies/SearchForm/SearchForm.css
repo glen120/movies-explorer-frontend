@@ -1,0 +1,116 @@
+.search-form {
+  width: 100%;
+  margin-bottom: 10px;
+  padding-bottom: 69px;
+  border-bottom: 1px solid rgba(66, 66, 66, 1);
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    padding-bottom: 50px;
+  }
+}
+
+@media (max-width: 425px) {
+  .search-form {
+    padding-bottom: 49px;
+  }
+}
+
+.search-form__container {
+  display: flex;
+  align-items: center;
+}
+
+.search-form__input {
+  width: 100%;
+  margin-right: -40px;
+  padding: 14px 0 14px 22px;
+  background-color:  #2F2F2F;
+  border: none;
+  border-radius: 40px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  color: #8B8B8B;
+}
+
+@media (max-width: 425px) {
+  .search-form__input {
+    padding: 14px 0 14px 19px;
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+
+.search-form__button {
+  padding: 0;
+  margin-right: 6px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background-image: url('../../../images/search__icon.svg');
+  background-color: #2F2F2F;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.search-form__button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.search-form__checkbox-container {
+  margin: 41px 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 425px) {
+  .search-form__checkbox-container {
+    margin: 42px 0 0;
+  }
+}
+
+.search-form__checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.search-form__checkbox+.search-form__label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+@media (max-width: 425px) {
+  .search-form__checkbox+.search-form__label {
+    font-size: 11px;
+  }
+}
+
+.search-form__checkbox+.search-form__label::before {
+  content: "";
+  background-image: url('../../../images/checkbox-off.svg');
+  margin-right: 12px;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 425px) {
+  .search-form__checkbox+.search-form__label::before {
+    margin-right: 13px;
+  }
+}
+
+.search-form__checkbox:checked+.search-form__label::before {
+  background-image: url('../../../images/checkbox-on.svg');
+  width: 36px;
+  height: 20px;
+}

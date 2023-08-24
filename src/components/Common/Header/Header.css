@@ -4,7 +4,15 @@
   padding: 18px 70px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.header_main {
   background-color: #073042;
+}
+
+.header_movies {
+  background-color: #202020;
 }
 
 @media (max-width: 768px) {
@@ -16,6 +24,18 @@
 @media (max-width: 425px) {
   .header {
     padding: 18px 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header_movies {
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 425px) {
+  .header_movies {
+    padding: 15px 14px 16px;
   }
 }
 

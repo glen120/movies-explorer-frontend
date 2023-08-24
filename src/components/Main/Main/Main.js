@@ -12,7 +12,10 @@ import './Main.css';
 export default function Main() {
   return (
     <>
-      <Header />
+      <Header
+        isMain={true}
+        isLogin={false}
+      />
       <main className='main'>
         <Promo />
         <NavTab />
