@@ -3,19 +3,17 @@ import Header from '../../Common/Header/Header';
 import Footer from '../../Common/Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import MoreButton from '../MoreButton/MoreButton';
-import './Movies.css';
+import './SavedMovies.css';
 
-export default function Movies() {
+export default function SavedMovies() {
   return (
     <>
       <Header
         isLogin={true}
       />
-      <main className='movies'>
+      <main className='saved-movies'>
         <SearchForm />
         <MoviesCardList />
-        <MoreButton />
       </main>
       <Footer />
     </>

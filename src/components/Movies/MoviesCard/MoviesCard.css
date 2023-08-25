@@ -82,10 +82,6 @@
 .movie-card__button {
   border: none;
   width: 30px;
-  background-image: url('../../../images/save__disable.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #222222;
 }
 
 .movie-card__button:hover {
@@ -93,8 +89,30 @@
   cursor: pointer;
 }
 
-.movie-card__button:focus {
+.movie-card__button_save {
+  background-image: url('../../../images/save__disable.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222222;
+}
+
+.movie-card__button_save:focus {
   background-image: url('../../../images/save__enable.svg');
+}
+
+.movie-card__button_delete {
+  opacity: 0;
+  z-index: -1;
+  padding: 0;
+  background-image: url('../../../images/delete-card.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222222;
+}
+
+.movie-card:hover .movie-card__button_delete {
+  opacity: 1;
+  z-index: 0;
 }
 
 .movie-card__duration {

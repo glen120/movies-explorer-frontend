@@ -20,7 +20,7 @@ export default function MoviesCardList() {
         {movies.map((movie) => {
           return (
             <MoviesCard
-              id={movie.id}
+              key={movie.id}
               image={movie.image}
               name={movie.name}
               duration={movie.duration}
@@ -29,7 +29,6 @@ export default function MoviesCardList() {
         })
         }
       </ul>
-      <button className='movies-card-list__button' type='button'>Ещё</button>
     </section>
   );
 }
