@@ -35,7 +35,7 @@ export default function Profile() {
               maxLength='30'
               defaultValue='Сергей'
               required
-              disabled={isEdit ? false : true}
+              disabled={!isEdit}
             />
           </label>
           <label className='profile__data-container'>
@@ -49,7 +49,7 @@ export default function Profile() {
               maxLength='50'
               defaultValue='pochta@yandex.ru'
               required
-              disabled={isEdit ? false : true}
+              disabled={!isEdit}
             />
           </label>
 
