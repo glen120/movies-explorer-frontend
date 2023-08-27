@@ -23,7 +23,7 @@ export default function Profile() {
       />
       <section className='profile'>
         <h1 className='profile__title'>Привет, Сергей!</h1>
-        <form className='profile__form'>
+        <form className='profile__form' noValidate>
           <label className='profile__data-container'>
             <p className="profile__input-name">Имя</p>
             <input

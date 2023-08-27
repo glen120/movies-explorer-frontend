@@ -111,6 +111,12 @@
 @media (max-width: 850px) {
   .techs__list {
     padding: 83px 0 0 0;
+    grid-template-columns: repeat(7, 84px);
+  }
+}
+
+@media (max-width: 748px) {
+  .techs__list {
     grid-template: repeat(2, 57px) / repeat(4, 84px);
   }
 }
