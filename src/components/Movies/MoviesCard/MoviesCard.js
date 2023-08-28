@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-export default function MoviesCard({ image, name, duration }) {
+export default function MoviesCard({ name, duration, image }) {
   const location = useLocation();
 
   return (

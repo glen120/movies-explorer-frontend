@@ -1,18 +1,19 @@
-import React from 'react';
-import MoviesCard from '../MoviesCard/MoviesCard'
-import testCards from '../../../utils/TestCards'
+import React, {useState, useEffect} from 'react';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import moviesApi from '../../../utils/MoviesApi';
 import './MoviesCardList.css';
 
 export default function MoviesCardList() {
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = useState([]);
 
-  function getMovies() {
-    setMovies(testCards);
-  }
-
-  React.useEffect(() => {
-    getMovies();
-  }, []);
+  useEffect(() => {
+    Promise.all([ moviesApi.getMovies() ])
+      .then(([ movies ]) => {
+        setMovies(movies);
+      })
+      .catch((err) => console.log(err));
+    },
+  []);
 
   return (
     <section className='movies-card-list'>
@@ -21,9 +22,9 @@ export default function MoviesCardList() {
           return (
             <MoviesCard
               key={movie.id}
-              image={movie.image}
-              name={movie.name}
+              name={movie.nameRU}
               duration={movie.duration}
+              image={'https://api.nomoreparties.co/' + movie.image.url}
               />
           );
         })
