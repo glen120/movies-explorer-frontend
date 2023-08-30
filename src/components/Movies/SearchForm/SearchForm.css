@@ -27,6 +27,10 @@
   align-items: center;
 }
 
+.search-form__container_error {
+  border: 1px solid rgba(255, 0, 76, 1);
+}
+
 .search-form__container:hover {
   border: 1px solid rgba(66, 133, 244, 1);
 }
@@ -73,6 +77,15 @@
 .search-form__button:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.search-form__error {
+  padding-left: 22px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  color: #FF004C;
 }
 
 .search-form__checkbox-container {

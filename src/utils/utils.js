@@ -12,3 +12,10 @@ export const mainApiConfig = {
     'Content-type': 'application/json',
   }
 };
+
+export const minutesInHour = 60;
+export const shortMovieDuration = 40;
+
+export const notFoundMessage = 'Ничего не найдено';
+export const renderErrorMessage = `Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен.
+Подождите немного и попробуйте ещё раз`;

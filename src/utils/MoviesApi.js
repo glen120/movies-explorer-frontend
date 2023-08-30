@@ -1,4 +1,4 @@
-import { moviesApiConfig } from "./utils.js";
+import { moviesApiConfig } from './utils';
 
 class MoviesApi {
   constructor({ url, headers }) {
