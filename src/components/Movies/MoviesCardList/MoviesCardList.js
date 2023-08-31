@@ -29,11 +29,13 @@ export default function MoviesCardList({ movies, displaySetting }) {
 
   useEffect(() => {
     displayMovies(window.innerWidth);
-    window.addEventListener('resize',
-      window.fn = (evt) => displayMovies(evt.currentTarget.innerWidth)
-    );
-    return () => window.removeEventListener('resize', window.fn);
+    window.addEventListener('resize', handleDisplay);
+    return () => window.removeEventListener('resize', handleDisplay);
   }, []);
+
+  function handleDisplay(evt) {
+    displayMovies(evt.currentTarget.innerWidth);
+  }
 
   return (
     <section className='movies-card-list'>

@@ -78,9 +78,8 @@ export default function Movies() {
       setIsPreloader(true);
       setIsLoading(true);
       loadingMovies();
-    }
-    // eslint-disable-next-line
-  }, []);
+    }}, // eslint-disable-next-line
+    []);
 
   return (
     <>
