@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../Common/Header/Header';
 import Footer from '../../Common/Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
@@ -37,7 +37,8 @@ export default function Movies() {
     {
       setIsErrorMessage(notFoundMessage);
       setIsLoading(false);
-    } else
+    }
+    else
       {
       setMovies(foundMovies);
       setIsLoading(true);
@@ -56,8 +57,8 @@ export default function Movies() {
           loadingMovies();
         })
         .catch(() => {
-          setIsPreloader(false);
           setIsErrorMessage(renderErrorMessage);
+          setIsPreloader(false);
         });
     }
     else loadingMovies();
@@ -78,6 +79,7 @@ export default function Movies() {
       setIsLoading(true);
       loadingMovies();
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -94,7 +96,7 @@ export default function Movies() {
           isLoading ?
             <MoviesCardList
               movies={movies}
-              type={'all'}
+              displaySetting={'movies'}
             />
             : isErrorMessage && <MoviesError
             isErrorMessage={isErrorMessage}
