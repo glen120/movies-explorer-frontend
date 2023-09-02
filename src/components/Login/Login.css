@@ -68,16 +68,6 @@
   color: #8B8B8B;
 }
 
-.login__form-label:last-of-type {
-  margin-bottom: 179px;
-}
-
-@media (max-width: 425px) {
-  .login__form-label:last-of-type {
-    margin-bottom: 267px;
-  }
-}
-
 .login__input {
   margin-top: 10px;
   padding: 15px;
@@ -97,7 +87,7 @@
 }
 
 .login__form-error {
-  margin-bottom: 69px;
+  margin-bottom: 179px;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -107,7 +97,7 @@
 
 @media (max-width: 425px) {
   .login__form-error {
-    margin-bottom: 157px;
+    margin-bottom: 267px;
   }
 }
 

@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../Common/Header/Header';
+import { CurrentUserContext} from '../../contexts/CurrentUserContext';
 import './Profile.css';
 import {NavLink} from "react-router-dom";
 
-export default function Profile() {
+export default function Profile( { isLogin, isLogout, updateUser, infoMessage }) {
+  const currentUser = useContext(CurrentUserContext);
+
   const [isEdit, setIsEdit] = React.useState(false);
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    setIsEdit(false);
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
+  function handleNameChange(evt) {
+    setName(evt.target.value);
+  }
+
+  function handleEmailChange(evt) {
+    setEmail(evt.target.value);
   }
 
   function handleEdit(evt) {
@@ -16,14 +30,20 @@ export default function Profile() {
     setIsEdit(true);
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    updateUser({name, email});
+    setIsEdit(false);
+  }
+
   return (
     <>
       <Header
-        isLogin={true}
+        isLogin={isLogin}
       />
       <section className='profile'>
-        <h1 className='profile__title'>Привет, Сергей!</h1>
-        <form className='profile__form' noValidate>
+        <h1 className='profile__title'>Привет, {name}!</h1>
+        <form className='profile__form' onSubmit={handleSubmit} noValidate>
           <label className='profile__data-container'>
             <p className="profile__input-name">Имя</p>
             <input
@@ -33,7 +53,8 @@ export default function Profile() {
               placeholder='Ваше имя'
               minLength='2'
               maxLength='30'
-              defaultValue='Сергей'
+              value={name ?? ''}
+              onChange={handleNameChange}
               required
               disabled={!isEdit}
             />
@@ -47,7 +68,8 @@ export default function Profile() {
               placeholder='Ваш email'
               minLength='2'
               maxLength='50'
-              defaultValue='pochta@yandex.ru'
+              value={email ?? ''}
+              onChange={handleEmailChange}
               required
               disabled={!isEdit}
             />
@@ -55,7 +77,7 @@ export default function Profile() {
 
           {isEdit && (
             <div className='profile__button'>
-              <span className='profile__error-message'>При обновлении профиля произошла ошибка</span>
+              <span className='profile__error-message'>{infoMessage}</span>
               <button className='profile__submit-button' type='submit' onClick={handleSubmit}>Сохранить</button>
             </div>
           )}
@@ -63,9 +85,10 @@ export default function Profile() {
 
         {!isEdit && (
           <div className='profile__links'>
+            <span className='profile__error-message profile__error-message_success'>{infoMessage}</span>
             <button className='profile__edit-button' type='button' onClick={handleEdit}>Редактировать</button>
             <NavLink to='/' className='profile__logout-link'>
-              <button className='profile__logout-button'>Выйти из аккаунта</button>
+              <button className='profile__logout-button' type='button' onClick={isLogout}>Выйти из аккаунта</button>
             </NavLink>
           </div>
         )}

@@ -9,7 +9,7 @@ import moviesApi from '../../../utils/MoviesApi';
 import { shortMovieDuration, notFoundMessage, renderErrorMessage } from '../../../utils/utils'
 import './Movies.css';
 
-export default function Movies() {
+export default function Movies({ isLogin }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isPreloader, setIsPreloader] = useState(false);
@@ -23,8 +23,7 @@ export default function Movies() {
     if (shortMovieSearch === 'true')
     {
       return foundMovies.filter((movie) => movie.duration < shortMovieDuration);
-    }
-    else
+    } else
       {
       return foundMovies;
       }
@@ -37,8 +36,7 @@ export default function Movies() {
     {
       setIsErrorMessage(notFoundMessage);
       setIsLoading(false);
-    }
-    else
+    } else
       {
       setMovies(foundMovies);
       setIsLoading(true);
@@ -84,7 +82,7 @@ export default function Movies() {
   return (
     <>
       <Header
-        isLogin={true}
+        isLogin={isLogin}
       />
       <main className='movies'>
         <SearchForm

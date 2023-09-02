@@ -135,7 +135,10 @@
 }
 
 .profile__logout-link {
+  display: flex;
+  flex-direction: column;
   height: 16px;
+  text-decoration: none;
 }
 
 .profile__logout-button {
@@ -187,6 +190,10 @@
   font-style: normal;
   font-weight: 400;
   line-height: 14px;
+}
+
+.profile__error-message_success {
+  color: #3DDC84;
 }
 
 .profile__submit-button {

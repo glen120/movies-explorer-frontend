@@ -9,12 +9,12 @@ import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../../Common/Footer/Footer';
 import './Main.css';
 
-export default function Main() {
+export default function Main({ isLogin }) {
   return (
     <>
       <Header
         isMain={true}
-        isLogin={false}
+        isLogin={isLogin}
       />
       <main className='main'>
         <Promo />

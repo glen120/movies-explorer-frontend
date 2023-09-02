@@ -11,7 +11,7 @@ class MainApi {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(`Произошла ошибка ${res.status}.`);
+      return Promise.reject(res.status);
     }
   }
 
@@ -37,7 +37,7 @@ class MainApi {
 
   // Устанавливаем токен
   setToken(token) {
-    this._headers.authorization = `Bearer ${token}`;
+    this._headers.Authorization = `Bearer ${token}`;
   }
 
   // Запрашиваем данные пользователя
