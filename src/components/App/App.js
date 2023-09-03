@@ -8,7 +8,8 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Page404 from '../Page404/Page404';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { CurrentUserContext} from '../../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { SavedMoviesContext } from '../../contexts/SavedMoviesContext';
 import mainApi from '../../utils/MainApi';
 import { conflictError, conflictErrorMessage, unauthorizedError, unauthorizedErrorMessage,
   serverErrorMessage, updateUserSuccess } from '../../utils/utils';
@@ -16,8 +17,10 @@ import './App.css';
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
-  const [currentUser, setCurrentUser] = useState({});
   const [infoMessage, setInfoMessage] = useState( '');
+
+  const [currentUser, setCurrentUser] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const navigate = useNavigate();
 
@@ -72,8 +75,9 @@ export default function App() {
         });
     } else {
       setIsLogin(false);
-    }// eslint-disable-next-line
-  }, [isLogin]);
+    }
+  }, // eslint-disable-next-line
+    [isLogin]);
 
   // Функция выхода из профиля
   function handleLogout() {
@@ -106,54 +110,66 @@ export default function App() {
       });
   }
 
+  // Вызов сохраненных фильмов
+  useEffect(() => {
+      mainApi.getSavedMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies);
+        })
+        .catch((err) => console.log(err));
+  },
+    []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <Routes>
-      <Route
-        path='/'
-        element={<Main
-          isLogin={isLogin}
-        />}
-      />
-      <Route
-        path='/movies'
-        element={<ProtectedRoute
-          element={Movies}
-          isLogin={isLogin}
-        />}
-      />
-      <Route
-        path='/saved-movies'
-        element={<ProtectedRoute
-          element={SavedMovies}
-          isLogin={isLogin}
-        />} />
-      <Route
-        path='/profile'
-        element={<ProtectedRoute
-          element={Profile}
-          isLogin={isLogin}
-          isLogout={handleLogout}
-          updateUser={handleUpdateUser}
-          infoMessage={infoMessage}
-        />}
-      />
-      <Route
-        path='/signup'
-        element={<Register
-          handleRegister={handleRegister}
-          infoMessage={infoMessage}
-        />}
-      />
-      <Route
-        path='/signin'
-        element={<Login
-          handleLogin={handleLogin}
-          infoMessage={infoMessage}
-        />}
-      />
-      <Route path='*' element={<Page404 />} />
-    </Routes>
+      <SavedMoviesContext.Provider value={savedMovies}>
+        <Routes>
+          <Route
+            path='/'
+            element={<Main
+              isLogin={isLogin}
+              />}
+          />
+          <Route
+            path='/movies'
+            element={<ProtectedRoute
+              element={Movies}
+              isLogin={isLogin}
+            />}
+          />
+          <Route
+            path='/saved-movies'
+            element={<ProtectedRoute
+              element={SavedMovies}
+              isLogin={isLogin}
+            />} />
+          <Route
+            path='/profile'
+            element={<ProtectedRoute
+              element={Profile}
+              isLogin={isLogin}
+              isLogout={handleLogout}
+              updateUser={handleUpdateUser}
+              infoMessage={infoMessage}
+            />}
+          />
+          <Route
+            path='/signup'
+            element={<Register
+              handleRegister={handleRegister}
+              infoMessage={infoMessage}
+            />}
+          />
+          <Route
+            path='/signin'
+            element={<Login
+              handleLogin={handleLogin}
+              infoMessage={infoMessage}
+            />}
+          />
+          <Route path='*' element={<Page404 />} />
+        </Routes>
+      </SavedMoviesContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

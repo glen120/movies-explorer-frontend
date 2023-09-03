@@ -31,7 +31,8 @@ export default function MoviesCardList({ movies, displaySetting }) {
     displayMovies(window.innerWidth);
     window.addEventListener('resize', handleDisplay);
     return () => window.removeEventListener('resize', handleDisplay);
-  }, []);
+  }, // eslint-disable-next-line
+    []);
 
   function handleDisplay(evt) {
     displayMovies(evt.currentTarget.innerWidth);
@@ -59,6 +60,7 @@ export default function MoviesCardList({ movies, displaySetting }) {
                 nameRu={movie.nameRU}
                 duration={movie.duration}
                 image={'https://api.nomoreparties.co/' + movie.image.url}
+                displaySetting='savedMovies'
               />
             );
           })}

@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './SearchForm.css';
 
-export default function SearchForm({ submitSearchMovies, onClickShortMovies }) {
+export default function SearchForm({ submitSearchMovies, clickOnShortMovies, displaySetting }) {
   const [isSearchValue, setIsSearchValue] = useState('');
   const [isShortMovieSearch, setIsShortMovieSearch] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [isErrorShown, setIsErrorShown] = React.useState(false);
 
   useEffect(() => {
+    if (displaySetting === 'movies') {
       const searchRequest = localStorage.getItem('searchRequest');
       const shortMovieSearch = localStorage.getItem('shortMovieSearch');
-      if (searchRequest && shortMovieSearch)
-      {
+      if (searchRequest && shortMovieSearch) {
         setIsSearchValue(searchRequest);
         shortMovieSearch === 'true' ? setIsShortMovieSearch(true) : setIsShortMovieSearch(false);
       }
-    },
-    []);
+    } else {
+      localStorage.setItem('searchSavedMovies', '');
+      localStorage.setItem('shortSavedMovieSearch', 'false');
+      setIsShortMovieSearch(false);
+    }},
+    [displaySetting]);
 
   function handleSubmitSearch(evt) {
     evt.preventDefault();
@@ -42,7 +46,7 @@ export default function SearchForm({ submitSearchMovies, onClickShortMovies }) {
     }
     else
       {
-        onClickShortMovies(!isShortMovieSearch);
+        clickOnShortMovies(!isShortMovieSearch);
         setIsShortMovieSearch(!isShortMovieSearch);
         setIsErrorShown(false);
       }

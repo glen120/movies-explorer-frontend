@@ -62,7 +62,7 @@ export default function Movies({ isLogin }) {
     else loadingMovies();
   }
 
-  function onClickShortMovies(shortMovieSearch) {
+  function clickOnShortMovies(shortMovieSearch) {
     localStorage.setItem('shortMovieSearch', shortMovieSearch);
     if (localStorage.getItem('moviesData'))
     {
@@ -86,8 +86,9 @@ export default function Movies({ isLogin }) {
       />
       <main className='movies'>
         <SearchForm
+          displaySetting={'movies'}
           submitSearchMovies={submitSearchMovies}
-          onClickShortMovies={onClickShortMovies}
+          clickOnShortMovies={clickOnShortMovies}
         />
         {isPreloader ? <Preloader /> :
           isLoading ?
