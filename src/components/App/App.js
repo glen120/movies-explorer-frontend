@@ -46,6 +46,7 @@ export default function App() {
   function handleLogin(loginData) {
     mainApi.authorize(loginData)
       .then((res) => {
+        mainApi.setToken(res.token);
         localStorage.setItem('token', res.token);
         setIsLogin(true);
         navigate('/movies');
@@ -63,20 +64,21 @@ export default function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     mainApi.setToken(token);
-    if (token) {
-      mainApi.getUserInfo()
-        .then((user) => {
-          setCurrentUser(user);
-          setIsLogin(true);
-        })
-        .catch(() => {
-          setIsLogin(false);
-          handleLogout();
-        });
-    } else {
-      setIsLogin(false);
-    }
-  }, // eslint-disable-next-line
+      if (token) {
+        Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
+          .then(([userData, savedMovies]) => {
+            setCurrentUser(userData);
+            setSavedMovies(savedMovies);
+            setIsLogin(true);
+          })
+          .catch((err) => {
+            handleLogout();
+            console.log(err);
+          });
+      } else {
+        setIsLogin(false);
+      }
+    }, // eslint-disable-next-line
     [isLogin]);
 
   // Функция выхода из профиля
@@ -110,16 +112,6 @@ export default function App() {
       });
   }
 
-  // Вызов сохраненных фильмов
-  useEffect(() => {
-      mainApi.getSavedMovies()
-        .then((savedMovies) => {
-          setSavedMovies(savedMovies);
-        })
-        .catch((err) => console.log(err));
-  },
-    []);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SavedMoviesContext.Provider value={savedMovies}>
@@ -142,7 +134,8 @@ export default function App() {
             element={<ProtectedRoute
               element={SavedMovies}
               isLogin={isLogin}
-            />} />
+            />}
+          />
           <Route
             path='/profile'
             element={<ProtectedRoute
