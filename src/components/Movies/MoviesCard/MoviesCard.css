@@ -91,8 +91,11 @@
   background-color: #222222;
 }
 
-.movie-card__button_save:focus {
+.movie-card__button_active {
   background-image: url('../../../images/save__enable.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222222;
 }
 
 .movie-card__button_delete {

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './Register.css';
 
 export default function Register({ handleRegister, infoMessage }) {
+  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formValue, setFormValue] = useState({
     name: '',
     email: '',
@@ -11,13 +13,17 @@ export default function Register({ handleRegister, infoMessage }) {
   });
 
   function handleChange(evt) {
-    const {name, value} = evt.target;
+    const input = evt.target;
+    const { value, name } = input;
     setFormValue({...formValue, [name]: value});
+    setErrors({ ...errors, [name]: input.validationMessage });
+    setIsValid(input.closest('form').checkValidity());
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
     handleRegister(formValue);
+    setIsValid(false);
   }
 
   return (
@@ -35,10 +41,12 @@ export default function Register({ handleRegister, infoMessage }) {
             placeholder='Введите ваше имя'
             minLength='2'
             maxLength='30'
+            pattern='^[а-яА-ЯёЁa-zA-Z0-9]+$'
             value={formValue.name}
             onChange={handleChange}
             required
           />
+          <span className='register__form-validation'>{errors.name}</span>
         </label>
         <label className='register__form-label'>E-mail
           <input
@@ -48,10 +56,12 @@ export default function Register({ handleRegister, infoMessage }) {
             placeholder='Введите ваш email'
             minLength='5'
             maxLength='50'
+            pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
             value={formValue.email}
             onChange={handleChange}
             required
           />
+          <span className='register__form-validation'>{errors.email}</span>
         </label>
         <label className='register__form-label'>Пароль
           <input
@@ -65,9 +75,11 @@ export default function Register({ handleRegister, infoMessage }) {
             onChange={handleChange}
             required
           />
+          <span className='register__form-validation'>{errors.password}</span>
         </label>
         <span className='register__form-error'>{infoMessage}</span>
-        <button className='register__form-button' type='submit'>Зарегистрироваться</button>
+        <button
+          className={`register__form-button register__form-button_${!isValid ? 'disable' : ''}`} type='submit' disabled={!isValid}>Зарегистрироваться</button>
       </form>
       <p className="register__text">Уже зарегистрированы?
         <Link to="/signin" className="register__link"> Войти</Link>

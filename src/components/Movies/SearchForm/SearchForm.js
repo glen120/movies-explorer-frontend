@@ -68,6 +68,7 @@ export default function SearchForm({ submitSearchMovies, clickOnShortMovies, dis
           type='text'
           name='movieSearch'
           placeholder='Фильм'
+          autoComplete='off'
           value={isSearchValue}
           onChange={handleInputChange}
           required

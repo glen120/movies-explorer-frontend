@@ -39,6 +39,9 @@ export default function App() {
         } else {
           setInfoMessage(serverErrorMessage);
         }
+      })
+      .finally(() => {
+        setTimeout(() => setInfoMessage(''), 2000);
       });
   }
 
@@ -57,6 +60,9 @@ export default function App() {
         } else {
           setInfoMessage(serverErrorMessage);
         }
+      })
+      .finally(() => {
+        setTimeout(() => setInfoMessage(''), 2000);
       });
   }
 
@@ -112,6 +118,41 @@ export default function App() {
       });
   }
 
+  // Функция, добавляющая фильмы в сохраненное
+  function handleAddMovies(movie) {
+    const addMovie = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co/${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie.image.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    };
+    mainApi.saveMovie(addMovie)
+      .then((savedMovies) => {
+        setSavedMovies((movies) => [...movies, savedMovies]);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  // Функция, удаляющая фильмы из сохраненного
+  function handleDeleteSavedMovies(movie) {
+    const savedMovie = savedMovies.find((item) => item.movieId === movie.id || item.movieId === movie.movieId);
+    mainApi.deleteMovie(savedMovie._id)
+      .then(() => {
+        const newAddMovies = savedMovies.filter((saved) => {
+          return !(movie.id === saved.movieId || movie.movieId === saved.movieId);
+        });
+        setSavedMovies(newAddMovies);
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <SavedMoviesContext.Provider value={savedMovies}>
@@ -127,6 +168,8 @@ export default function App() {
             element={<ProtectedRoute
               element={Movies}
               isLogin={isLogin}
+              handleAddMovies={handleAddMovies}
+              handleDeleteSavedMovies={handleDeleteSavedMovies}
             />}
           />
           <Route
@@ -134,6 +177,7 @@ export default function App() {
             element={<ProtectedRoute
               element={SavedMovies}
               isLogin={isLogin}
+              handleDeleteSavedMovies={handleDeleteSavedMovies}
             />}
           />
           <Route

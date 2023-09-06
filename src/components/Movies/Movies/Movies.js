@@ -9,7 +9,7 @@ import moviesApi from '../../../utils/MoviesApi';
 import { shortMovieDuration, notFoundMessage, renderErrorMessage } from '../../../utils/utils'
 import './Movies.css';
 
-export default function Movies({ isLogin }) {
+export default function Movies({ isLogin, handleAddMovies, handleDeleteSavedMovies }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isPreloader, setIsPreloader] = useState(false);
@@ -95,6 +95,8 @@ export default function Movies({ isLogin }) {
             <MoviesCardList
               movies={movies}
               displaySetting={'movies'}
+              handleAddMovies={handleAddMovies}
+              handleDeleteSavedMovies={handleDeleteSavedMovies}
             />
             : isErrorMessage && <MoviesError
             isErrorMessage={isErrorMessage}

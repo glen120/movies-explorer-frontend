@@ -90,6 +90,15 @@
   background-color: #474747;
 }
 
+.register__form-validation {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  color: #EE3465;
+  margin-top: 5px;
+}
+
 .register__form-error {
   margin-bottom: 69px;
   font-size: 10px;
@@ -120,6 +129,15 @@
 .register__form-button:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.register__form-button_disable {
+  background-color: #8B8B8B;
+}
+
+.register__form-button_disable:hover {
+  opacity: inherit;
+  cursor: auto;
 }
 
 @media (max-width: 425px) {

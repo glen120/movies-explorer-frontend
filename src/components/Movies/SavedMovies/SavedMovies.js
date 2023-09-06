@@ -9,7 +9,7 @@ import { SavedMoviesContext } from '../../../contexts/SavedMoviesContext';
 import {notFoundMessage, shortMovieDuration} from '../../../utils/utils';
 import './SavedMovies.css';
 
-export default function SavedMovies({ isLogin }) {
+export default function SavedMovies({ isLogin, handleDeleteSavedMovies }) {
   const savedMovies = useContext(SavedMoviesContext);
 
   const [movies, setMovies] = useState([]);
@@ -45,7 +45,7 @@ export default function SavedMovies({ isLogin }) {
   }
 
   function submitSearchSavedMovies(searchSavedMovies, shortSavedMovieSearch) {
-    localStorage.setItem('searchSavedMovie', searchSavedMovies);
+    localStorage.setItem('searchSavedMovies', searchSavedMovies);
     localStorage.setItem('shortSavedMovieSearch', shortSavedMovieSearch);
     loadingSavedMovies();
   }
@@ -60,7 +60,7 @@ export default function SavedMovies({ isLogin }) {
     setIsLoading(true);
     loadingSavedMovies();
     }, // eslint-disable-next-line
-    []);
+    [savedMovies]);
 
   return (
     <>
@@ -78,6 +78,7 @@ export default function SavedMovies({ isLogin }) {
             <MoviesCardList
               movies={movies}
               displaySetting={'savedMovies'}
+              handleDeleteSavedMovies={handleDeleteSavedMovies}
             />
             : isErrorMessage &&
             <MoviesError

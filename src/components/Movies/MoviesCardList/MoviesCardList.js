@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import MoreButton from '../MoreButton/MoreButton';
+import { SavedMoviesContext } from '../../../contexts/SavedMoviesContext';
 import { displaySettings } from '../../../utils/utils';
 import './MoviesCardList.css';
 
-export default function MoviesCardList({ movies, displaySetting }) {
+export default function MoviesCardList({ movies, displaySetting, handleAddMovies, handleDeleteSavedMovies }) {
+  const savedMovies = useContext(SavedMoviesContext);
+
   const [isDisplayMovies, setIsDisplayMovies] = useState(0);
   const [isAddMovies, setIsAddMovies] = useState(0);
 
@@ -38,6 +41,13 @@ export default function MoviesCardList({ movies, displaySetting }) {
     displayMovies(evt.currentTarget.innerWidth);
   }
 
+  function checkIsMovieSaved(savedMovies, movie) {
+    return savedMovies.find((item) => {
+      return item.movieId === (movie.id || movie.movieId);
+    });
+  }
+
+
   return (
     <section className='movies-card-list'>
       <ul className='movies-card-list__list'>
@@ -46,21 +56,19 @@ export default function MoviesCardList({ movies, displaySetting }) {
             return (
               <MoviesCard
                 key={movie.id}
-                nameRu={movie.nameRU}
-                duration={movie.duration}
-                image={'https://api.nomoreparties.co/' + movie.image.url}
-                displaySetting='movies'
+                movie={movie}
+                isSaved={checkIsMovieSaved(savedMovies, movie)}
+                handleAddMovies={handleAddMovies}
+                handleDeleteSavedMovies={handleDeleteSavedMovies}
               />
             );
           })
           : movies.map((movie) => {
             return (
               <MoviesCard
-                key={movie.id}
-                nameRu={movie.nameRU}
-                duration={movie.duration}
-                image={'https://api.nomoreparties.co/' + movie.image.url}
-                displaySetting='savedMovies'
+                key={movie.movieId}
+                movie={movie}
+                handleDeleteSavedMovies={handleDeleteSavedMovies}
               />
             );
           })}
