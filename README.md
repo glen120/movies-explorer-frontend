@@ -14,6 +14,8 @@ Movies Explorer - сервис для поиска фильмов и сохра�
 
 [Backend Movies Explorer](https://github.com/glen120/movies-explorer-api)
 
-Ссылка на приложение: [Movies Explorer](https://movies-explorer.glen120.nomoredomainsicu.ru)
+Ссылка на [Pull Request](https://github.com/glen120/movies-explorer-frontend/pull/2)
+
+Ссылка на приложение [Movies Explorer](https://movies-explorer.glen120.nomoredomainsicu.ru)
 
 Макет в Figma: [dark-3](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1-8436&mode=design&t=UTZASStloFfLHnkq-0)
