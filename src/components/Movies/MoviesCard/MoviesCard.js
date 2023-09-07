@@ -21,10 +21,23 @@ export default function MoviesCard({ movie, isSaved, handleAddMovies, handleDele
   return (
     <li className='movie-card'>
       {(location.pathname === '/movies') &&
-      <img src={`https://api.nomoreparties.co/${movie.image.url}`} className='movie-card__image' alt={`Кадр из фильма ${movie.nameRU}`}/>
+        <a className='movie-card__link'
+           href={movie.trailerLink}
+           target='blank'>
+          <img src={`https://api.nomoreparties.co/${movie.image.url}`}
+               className='movie-card__image'
+               alt={`Кадр из фильма ${movie.nameRU}`}
+          />
+        </a>
       }
       {(location.pathname === '/saved-movies') &&
-      <img src={movie.image} className='movie-card__image' alt={`Кадр из фильма ${movie.nameRU}`}/>
+        <a className='movie-card__link'
+           href={movie.trailerLink}
+           target='blank'>
+          <img src={movie.image}
+               className='movie-card__image'
+               alt={`Кадр из фильма ${movie.nameRU}`}/>
+        </a>
       }
       <div className='movie-card__content'>
         <h3 className='movie-card__name'>{movie.nameRU}</h3>

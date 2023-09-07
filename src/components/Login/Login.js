@@ -4,19 +4,25 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 
 export default function Login({ handleLogin, infoMessage }) {
+  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formValue, setFormValue] = useState({
     email: '',
     password: ''
   });
 
   function handleChange(evt) {
-    const {name, value} = evt.target;
+    const input = evt.target;
+    const { value, name } = input;
     setFormValue({...formValue, [name]: value});
+    setErrors({ ...errors, [name]: input.validationMessage });
+    setIsValid(input.closest('form').checkValidity());
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
     handleLogin(formValue);
+    setIsValid(false);
   }
 
   return (
@@ -34,10 +40,12 @@ export default function Login({ handleLogin, infoMessage }) {
             placeholder='Введите ваш email'
             minLength='5'
             maxLength='50'
+            pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
             value={formValue.email}
             onChange={handleChange}
             required
           />
+          <span className={`login__form-validation login__form-validation_${!isValid ? 'active' : ''}`}>{errors.email}</span>
         </label>
         <label className='login__form-label'>Пароль
           <input
@@ -51,9 +59,10 @@ export default function Login({ handleLogin, infoMessage }) {
             onChange={handleChange}
             required
           />
+          <span className={`login__form-validation login__form-validation_${!isValid ? 'active' : ''}`}>{errors.password}</span>
         </label>
         <span className='login__form-error'>{infoMessage}</span>
-        <button className='login__form-button' type='submit'>Войти</button>
+        <button className={`login__form-button login__form-button_${!isValid ? 'disable' : ''}`} type='submit' disabled={!isValid}>Войти</button>
       </form>
       <p className="login__text">Ещё не зарегистрированы?
         <Link to="/signup" className="login__link"> Регистрация</Link>

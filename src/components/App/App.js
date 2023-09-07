@@ -41,7 +41,7 @@ export default function App() {
         }
       })
       .finally(() => {
-        setTimeout(() => setInfoMessage(''), 2000);
+        setTimeout(() => setInfoMessage(''), 3000);
       });
   }
 
@@ -62,7 +62,7 @@ export default function App() {
         }
       })
       .finally(() => {
-        setTimeout(() => setInfoMessage(''), 2000);
+        setTimeout(() => setInfoMessage(''), 3000);
       });
   }
 

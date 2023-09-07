@@ -46,7 +46,7 @@ export default function Register({ handleRegister, infoMessage }) {
             onChange={handleChange}
             required
           />
-          <span className='register__form-validation'>{errors.name}</span>
+          <span className={`register__form-validation register__form-validation_${!isValid ? 'active' : ''}`}>{errors.name}</span>
         </label>
         <label className='register__form-label'>E-mail
           <input
@@ -61,7 +61,7 @@ export default function Register({ handleRegister, infoMessage }) {
             onChange={handleChange}
             required
           />
-          <span className='register__form-validation'>{errors.email}</span>
+          <span className={`register__form-validation register__form-validation_${!isValid ? 'active' : ''}`}>{errors.email}</span>
         </label>
         <label className='register__form-label'>Пароль
           <input
@@ -75,7 +75,7 @@ export default function Register({ handleRegister, infoMessage }) {
             onChange={handleChange}
             required
           />
-          <span className='register__form-validation'>{errors.password}</span>
+          <span className={`register__form-validation register__form-validation_${!isValid ? 'active' : ''}`}>{errors.password}</span>
         </label>
         <span className='register__form-error'>{infoMessage}</span>
         <button

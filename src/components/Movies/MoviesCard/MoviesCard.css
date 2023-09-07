@@ -19,11 +19,21 @@
   }
 }
 
+.movie-card__link {
+  display: flex;
+}
+
 .movie-card__image {
   width: 100%;
-  height: 190px;
+  height: 203px;
   object-position: center;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .movie-card__image {
+    height: 190px;
+  }
 }
 
 @media (max-width: 425px) {
@@ -111,6 +121,13 @@
 .movie-card:hover .movie-card__button_delete {
   opacity: 1;
   z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .movie-card__button_delete {
+    opacity: 1;
+    z-index: 0;
+  }
 }
 
 .movie-card__duration {

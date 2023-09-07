@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Header from '../Common/Header/Header';
 import { CurrentUserContext} from '../../contexts/CurrentUserContext';
 import './Profile.css';
@@ -7,22 +7,25 @@ import {NavLink} from "react-router-dom";
 export default function Profile( { isLogin, isLogout, updateUser, infoMessage }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [isEdit, setIsEdit] = React.useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [isValid, setIsValid] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
+    setUserData({
+      name: currentUser.name,
+      email: currentUser.email
+    })
   }, [currentUser]);
 
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
+  function handleChange(evt) {
+    const input = evt.target;
+    const { value, name } = input;
+    setUserData({...userData, [name]: value});
+    setErrors({ ...errors, [name]: input.validationMessage });
+    setIsValid(input.closest('form').checkValidity());
   }
 
   function handleEdit(evt) {
@@ -32,9 +35,16 @@ export default function Profile( { isLogin, isLogout, updateUser, infoMessage })
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    updateUser({name, email});
+    updateUser(userData);
     setIsEdit(false);
+    setIsValid(false);
   }
+
+  useEffect(() => {
+    if (currentUser.name === userData.name && currentUser.email === userData.email) {
+      setIsValid(false);
+    }// eslint-disable-next-line
+  }, [userData]);
 
   return (
     <>
@@ -42,8 +52,9 @@ export default function Profile( { isLogin, isLogout, updateUser, infoMessage })
         isLogin={isLogin}
       />
       <section className='profile'>
-        <h1 className='profile__title'>Привет, {name}!</h1>
+        <h1 className='profile__title'>Привет, {userData.name}!</h1>
         <form className='profile__form' onSubmit={handleSubmit} noValidate>
+          <span className={`profile__form-validation profile__form-validation_${!isValid ? 'active' : ''}`}>{errors.name}</span>
           <label className='profile__data-container'>
             <p className="profile__input-name">Имя</p>
             <input
@@ -53,8 +64,9 @@ export default function Profile( { isLogin, isLogout, updateUser, infoMessage })
               placeholder='Ваше имя'
               minLength='2'
               maxLength='30'
-              value={name ?? ''}
-              onChange={handleNameChange}
+              pattern='^[а-яА-ЯёЁa-zA-Z0-9]+$'
+              value={userData.name ?? ''}
+              onChange={handleChange}
               required
               disabled={!isEdit}
             />
@@ -68,17 +80,19 @@ export default function Profile( { isLogin, isLogout, updateUser, infoMessage })
               placeholder='Ваш email'
               minLength='2'
               maxLength='50'
-              value={email ?? ''}
-              onChange={handleEmailChange}
+              pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
+              value={userData.email ?? ''}
+              onChange={handleChange}
               required
               disabled={!isEdit}
             />
           </label>
+          <span className={`profile__form-validation profile__form-validation_${!isValid ? 'active' : ''}`}>{errors.email}</span>
 
           {isEdit && (
             <div className='profile__button'>
               <span className='profile__error-message'>{infoMessage}</span>
-              <button className='profile__submit-button' type='submit' onClick={handleSubmit}>Сохранить</button>
+              <button className={`profile__submit-button profile__submit-button_${!isValid ? 'disable' : ''}`} type='submit' onClick={handleSubmit} disabled={!isValid}>Сохранить</button>
             </div>
           )}
         </form>

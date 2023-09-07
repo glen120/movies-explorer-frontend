@@ -30,7 +30,7 @@ export default function SearchForm({ submitSearchMovies, clickOnShortMovies, dis
     }
     else if (isSearchValue === localStorage.getItem('searchRequest'))
       {
-        setError('Введите новый поисковый запрос');
+        setError('Введите другой поисковый запрос');
         setIsErrorShown(true);
       }
     else {
