@@ -23,6 +23,11 @@ export default function Profile( { isLogin, isLogout, updateUser, infoMessage })
   function handleChange(evt) {
     const input = evt.target;
     const { value, name } = input;
+    if (name === 'name' && input.validity.patternMismatch) {
+      input.setCustomValidity('Имя не должно содержать пробел, дефис и иных знаков препинания');
+    } else {
+      input.setCustomValidity('');
+    }
     setUserData({...userData, [name]: value});
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest('form').checkValidity());

@@ -66,15 +66,15 @@ export default function App() {
       });
   }
 
-  // Проверка токена
+  // Проверка токена, получение данных пользователя и сохраненных фильмов
   useEffect(() => {
     const token = localStorage.getItem('token');
     mainApi.setToken(token);
       if (token) {
         Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
           .then(([userData, savedMovies]) => {
-            setCurrentUser(userData);
             setSavedMovies(savedMovies);
+            setCurrentUser(userData);
             setIsLogin(true);
           })
           .catch((err) => {
@@ -90,12 +90,10 @@ export default function App() {
   // Функция выхода из профиля
   function handleLogout() {
     setIsLogin(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('moviesData');
-    localStorage.removeItem('searchRequest');
-    localStorage.removeItem('shortMovieSearch');
+    localStorage.clear();
     mainApi.setToken(null);
-    setCurrentUser(null);
+    setCurrentUser({});
+    setSavedMovies([]);
     navigate('/');
   }
 

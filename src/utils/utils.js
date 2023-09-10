@@ -16,10 +16,8 @@ export const mainApiConfig = {
 export const minutesInHour = 60;
 export const shortMovieDuration = 40;
 
-export const badRequestError = 400;
 export const unauthorizedError = 401;
 export const conflictError = 409;
-export const serverError = 500;
 
 export const updateUserSuccess = 'Данные профиля успешно обновлены';
 export const unauthorizedErrorMessage = 'Неверная почта или пароль';
@@ -32,7 +30,7 @@ export const renderErrorMessage = `Во время запроса произош
 export const displaySettings = {
   main: {
     movies: 12,
-    add: 6
+    add: 3
   },
   pad: {
     movies: 8,

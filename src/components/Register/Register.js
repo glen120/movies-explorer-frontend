@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
+/*import {errorName, errorEmail} from '../../utils/utils';*/
 import './Register.css';
 
 export default function Register({ handleRegister, infoMessage }) {
@@ -15,6 +16,11 @@ export default function Register({ handleRegister, infoMessage }) {
   function handleChange(evt) {
     const input = evt.target;
     const { value, name } = input;
+    if (name === 'name' && input.validity.patternMismatch) {
+      input.setCustomValidity('Имя не должно содержать пробел, дефис и иных знаков препинания');
+    } else {
+      input.setCustomValidity('');
+    }
     setFormValue({...formValue, [name]: value});
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest('form').checkValidity());

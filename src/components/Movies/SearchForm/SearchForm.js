@@ -5,7 +5,7 @@ export default function SearchForm({ submitSearchMovies, clickOnShortMovies, dis
   const [isSearchValue, setIsSearchValue] = useState('');
   const [isShortMovieSearch, setIsShortMovieSearch] = useState(false);
   const [errorText, setErrorText] = useState('');
-  const [isErrorShown, setIsErrorShown] = React.useState(false);
+  const [isErrorShown, setIsErrorShown] = useState(false);
 
   useEffect(() => {
     if (displaySetting === 'movies') {

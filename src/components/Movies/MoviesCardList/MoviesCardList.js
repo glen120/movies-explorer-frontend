@@ -16,11 +16,11 @@ export default function MoviesCardList({ movies, displaySetting, handleAddMovies
       setIsDisplayMovies(displaySettings.main.movies);
       setIsAddMovies(displaySettings.main.add);
     }
-    else if (windowWidth > 425) {
+    else if (windowWidth > 480) {
       setIsDisplayMovies(displaySettings.pad.movies);
       setIsAddMovies(displaySettings.pad.add);
     }
-    else if (windowWidth > 320) {
+    else if (windowWidth > 319) {
       setIsDisplayMovies(displaySettings.mobile.movies);
       setIsAddMovies(displaySettings.mobile.add);
     }
