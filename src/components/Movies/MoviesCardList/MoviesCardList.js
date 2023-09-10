@@ -9,44 +9,45 @@ export default function MoviesCardList({ movies, displaySetting, handleAddMovies
   const savedMovies = useContext(SavedMoviesContext);
 
   const [isDisplayMovies, setIsDisplayMovies] = useState(0);
-  const [isAddMovies, setIsAddMovies] = useState(0);
 
-  function displayMovies(windowWidth) {
-    if (windowWidth > 768) {
+  function displayMovies() {
+    const display = window.innerWidth;
+    if (display > 768) {
       setIsDisplayMovies(displaySettings.main.movies);
-      setIsAddMovies(displaySettings.main.add);
     }
-    else if (windowWidth > 480) {
+    else if (display > 480) {
       setIsDisplayMovies(displaySettings.pad.movies);
-      setIsAddMovies(displaySettings.pad.add);
     }
-    else if (windowWidth > 319) {
+    else if (display > 319) {
       setIsDisplayMovies(displaySettings.mobile.movies);
-      setIsAddMovies(displaySettings.mobile.add);
     }
   }
 
   function addMovies() {
-    setIsDisplayMovies(isDisplayMovies + isAddMovies);
+    const display = window.innerWidth;
+    if (display > 768) {
+      setIsDisplayMovies(isDisplayMovies + displaySettings.main.add);
+    } else if (display > 480) {
+      setIsDisplayMovies(isDisplayMovies + displaySettings.pad.add);
+    } else if (display > 319) {
+      setIsDisplayMovies(isDisplayMovies + displaySettings.mobile.add);
+    }
   }
 
   useEffect(() => {
-    displayMovies(window.innerWidth);
-    window.addEventListener('resize', handleDisplay);
-    return () => window.removeEventListener('resize', handleDisplay);
-  }, // eslint-disable-next-line
-    []);
+    displayMovies();
+  }, [movies]);
 
-  function handleDisplay(evt) {
-    displayMovies(evt.currentTarget.innerWidth);
-  }
+  useEffect(() => {
+    window.addEventListener('resize', displayMovies);
+    return () => window.removeEventListener('resize', displayMovies);
+  }, []);
 
   function checkIsMovieSaved(savedMovies, movie) {
     return savedMovies.find((item) => {
       return item.movieId === (movie.id || movie.movieId);
     });
   }
-
 
   return (
     <section className='movies-card-list'>
