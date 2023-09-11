@@ -18,7 +18,7 @@
 }
 
 .profile__title {
-  margin: 0 0 123px;
+  margin: 0 0 101px;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -27,13 +27,13 @@
 
 @media (max-width: 768px) {
   .profile__title {
-    margin: 0 0 96px;
+    margin: 0 0 74px;
   }
 }
 
 @media (max-width: 425px) {
   .profile__title {
-    margin: 0 0 80px;
+    margin: 0 0 58px;
   }
 }
 
@@ -47,6 +47,23 @@
   .profile__form {
     width: 260px;
   }
+}
+
+.profile__form-validation {
+  display: block;
+  opacity: 0;
+  height: 12px;
+  text-align: end;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  color: #EE3465;
+  margin: 5px 0;
+}
+
+.profile__form-validation_active {
+  opacity: 1;
 }
 
 .profile__data-container {
@@ -93,7 +110,7 @@
 }
 
 .profile__links {
-  margin-top: 220px;
+  margin-top: 168px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -101,13 +118,13 @@
 
 @media (max-width: 768px) {
   .profile__links {
-    margin-top: 210px;
+    margin-top: 158px;
   }
 }
 
 @media (max-width: 425px) {
   .profile__links {
-    margin-top: 379px;
+    margin-top: 327px;
   }
 }
 
@@ -135,7 +152,10 @@
 }
 
 .profile__logout-link {
+  display: flex;
+  flex-direction: column;
   height: 16px;
+  text-decoration: none;
 }
 
 .profile__logout-button {
@@ -162,7 +182,7 @@
 }
 
 .profile__button {
-  margin-top: 223px;
+  margin-top: 201px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -170,23 +190,28 @@
 
 @media (max-width: 768px) {
   .profile__button {
-    margin-top: 213px;
+    margin-top: 191px;
   }
 }
 
 @media (max-width: 425px) {
   .profile__button {
-    margin-top: 369px;
+    margin-top: 347px;
   }
 }
 
 .profile__error-message {
   color: #FF004C;
+  height: 14px;
   text-align: center;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: 14px;
+}
+
+.profile__error-message_success {
+  color: #3DDC84;
 }
 
 .profile__submit-button {
@@ -201,12 +226,16 @@
   line-height: 17px;
 }
 
-.profile__submit-button:disabled {
-  background-color: #F8F8F8;
-  color: #C2C2C2;
-}
-
 .profile__submit-button:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.profile__submit-button_disable {
+  background-color: #8B8B8B;
+}
+
+.profile__submit-button_disable:hover {
+  opacity: inherit;
+  cursor: auto;
 }
